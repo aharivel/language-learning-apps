@@ -1,0 +1,12 @@
+name = "korean-quiz"
+compatibility_date = "2025-01-01"
+main = "src/worker.js"
+
+[assets]
+directory = "./src"
+not_found_handling = "single-page-application"
+binding = "ASSETS"
+
+[[routes]]
+pattern = "korean.harivel.cc/*"
+zone_name = "harivel.cc"
