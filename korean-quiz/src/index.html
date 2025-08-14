@@ -19,9 +19,240 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        // Copy your complete Korean Quiz React component code here (including the "Good luck Isla-Rose!" ribbon!)
         const KoreanQuizApp = () => {
-            // [PASTE YOUR KOREAN QUIZ COMPONENT CODE FROM THE ARTIFACT HERE]
+          // Hangul character databases
+          const basicVowels = [
+            { char: 'ㅏ', reading: 'a' }, { char: 'ㅑ', reading: 'ya' }, { char: 'ㅓ', reading: 'eo' }, { char: 'ㅕ', reading: 'yeo' },
+            { char: 'ㅗ', reading: 'o' }, { char: 'ㅛ', reading: 'yo' }, { char: 'ㅜ', reading: 'u' }, { char: 'ㅠ', reading: 'yu' },
+            { char: 'ㅡ', reading: 'eu' }, { char: 'ㅣ', reading: 'i' }
+          ];
+
+          const complexVowels = [
+            { char: 'ㅐ', reading: 'ae' }, { char: 'ㅒ', reading: 'yae' }, { char: 'ㅔ', reading: 'e' }, { char: 'ㅖ', reading: 'ye' },
+            { char: 'ㅘ', reading: 'wa' }, { char: 'ㅙ', reading: 'wae' }, { char: 'ㅚ', reading: 'oe' }, { char: 'ㅝ', reading: 'wo' },
+            { char: 'ㅞ', reading: 'we' }, { char: 'ㅟ', reading: 'wi' }, { char: 'ㅢ', reading: 'ui' }
+          ];
+
+          const basicConsonants = [
+            { char: 'ㄱ', reading: 'g/k' }, { char: 'ㄴ', reading: 'n' }, { char: 'ㄷ', reading: 'd/t' }, { char: 'ㄹ', reading: 'r/l' },
+            { char: 'ㅁ', reading: 'm' }, { char: 'ㅂ', reading: 'b/p' }, { char: 'ㅅ', reading: 's' }, { char: 'ㅇ', reading: 'ng/silent' },
+            { char: 'ㅈ', reading: 'j' }, { char: 'ㅊ', reading: 'ch' }, { char: 'ㅋ', reading: 'k' }, { char: 'ㅌ', reading: 't' },
+            { char: 'ㅍ', reading: 'p' }, { char: 'ㅎ', reading: 'h' }
+          ];
+
+          const doubleConsonants = [
+            { char: 'ㄲ', reading: 'kk' }, { char: 'ㄸ', reading: 'tt' }, { char: 'ㅃ', reading: 'pp' },
+            { char: 'ㅆ', reading: 'ss' }, { char: 'ㅉ', reading: 'jj' }
+          ];
+
+          const commonSyllables = [
+            { char: '가', reading: 'ga' }, { char: '나', reading: 'na' }, { char: '다', reading: 'da' }, { char: '라', reading: 'ra' },
+            { char: '마', reading: 'ma' }, { char: '바', reading: 'ba' }, { char: '사', reading: 'sa' }, { char: '아', reading: 'a' },
+            { char: '자', reading: 'ja' }, { char: '차', reading: 'cha' }, { char: '카', reading: 'ka' }, { char: '타', reading: 'ta' },
+            { char: '파', reading: 'pa' }, { char: '하', reading: 'ha' }, { char: '고', reading: 'go' }, { char: '노', reading: 'no' },
+            { char: '도', reading: 'do' }, { char: '로', reading: 'ro' }, { char: '모', reading: 'mo' }, { char: '보', reading: 'bo' },
+            { char: '소', reading: 'so' }, { char: '오', reading: 'o' }, { char: '조', reading: 'jo' }, { char: '초', reading: 'cho' },
+            { char: '코', reading: 'ko' }, { char: '토', reading: 'to' }, { char: '포', reading: 'po' }, { char: '호', reading: 'ho' },
+            { char: '구', reading: 'gu' }, { char: '누', reading: 'nu' }, { char: '두', reading: 'du' }, { char: '루', reading: 'ru' },
+            { char: '무', reading: 'mu' }, { char: '부', reading: 'bu' }, { char: '수', reading: 'su' }, { char: '우', reading: 'u' },
+            { char: '주', reading: 'ju' }, { char: '추', reading: 'chu' }, { char: '쿠', reading: 'ku' }, { char: '투', reading: 'tu' },
+            { char: '푸', reading: 'pu' }, { char: '후', reading: 'hu' }, { char: '그', reading: 'geu' }, { char: '느', reading: 'neu' },
+            { char: '드', reading: 'deu' }, { char: '르', reading: 'reu' }, { char: '므', reading: 'meu' }, { char: '브', reading: 'beu' },
+            { char: '스', reading: 'seu' }, { char: '으', reading: 'eu' }, { char: '즈', reading: 'jeu' }, { char: '츠', reading: 'cheu' },
+            { char: '크', reading: 'keu' }, { char: '트', reading: 'teu' }, { char: '프', reading: 'peu' }, { char: '흐', reading: 'heu' },
+            { char: '기', reading: 'gi' }, { char: '니', reading: 'ni' }, { char: '디', reading: 'di' }, { char: '리', reading: 'ri' },
+            { char: '미', reading: 'mi' }, { char: '비', reading: 'bi' }, { char: '시', reading: 'si' }, { char: '이', reading: 'i' },
+            { char: '지', reading: 'ji' }, { char: '치', reading: 'chi' }, { char: '키', reading: 'ki' }, { char: '티', reading: 'ti' },
+            { char: '피', reading: 'pi' }, { char: '히', reading: 'hi' }
+          ];
+
+          const [mode, setMode] = React.useState('menu');
+          const [currentSet, setCurrentSet] = React.useState([]);
+          const [currentQuestion, setCurrentQuestion] = React.useState(null);
+          const [options, setOptions] = React.useState([]);
+          const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+          const [showAnswer, setShowAnswer] = React.useState(false);
+          const [score, setScore] = React.useState({ correct: 0, total: 0 });
+          const [usedQuestions, setUsedQuestions] = React.useState([]);
+
+          const startQuiz = (quizType) => {
+            let characterSet;
+            switch(quizType) {
+              case 'basicVowels': characterSet = basicVowels; break;
+              case 'complexVowels': characterSet = complexVowels; break;
+              case 'basicConsonants': characterSet = basicConsonants; break;
+              case 'doubleConsonants': characterSet = doubleConsonants; break;
+              case 'commonSyllables': characterSet = commonSyllables; break;
+              default: return;
+            }
+            
+            setCurrentSet(characterSet);
+            setMode('quiz');
+            setScore({ correct: 0, total: 0 });
+            setUsedQuestions([]);
+            generateQuestion(characterSet, []);
+          };
+
+          const generateQuestion = (characterSet, used) => {
+            const availableQuestions = characterSet.filter((_, index) => !used.includes(index));
+            
+            if (availableQuestions.length === 0) {
+              setUsedQuestions([]);
+              return generateQuestion(characterSet, []);
+            }
+
+            const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            const question = availableQuestions[randomIndex];
+            const questionIndex = characterSet.indexOf(question);
+            
+            const wrongAnswers = characterSet
+              .filter(item => item.reading !== question.reading)
+              .sort(() => Math.random() - 0.5)
+              .slice(0, 2)
+              .map(item => item.reading);
+            
+            const allOptions = [question.reading, ...wrongAnswers].sort(() => Math.random() - 0.5);
+            
+            setCurrentQuestion(question);
+            setOptions(allOptions);
+            setSelectedAnswer(null);
+            setShowAnswer(false);
+            setUsedQuestions([...used, questionIndex]);
+          };
+
+          const handleAnswer = (answer) => {
+            setSelectedAnswer(answer);
+            const isCorrect = answer === currentQuestion.reading;
+            
+            setScore(prev => ({
+              correct: prev.correct + (isCorrect ? 1 : 0),
+              total: prev.total + 1
+            }));
+
+            if (isCorrect) {
+              setTimeout(() => generateQuestion(currentSet, usedQuestions), 800);
+            } else {
+              setShowAnswer(true);
+              setTimeout(() => generateQuestion(currentSet, usedQuestions), 4000);
+            }
+          };
+
+          const backToMenu = () => {
+            setMode('menu');
+          };
+
+          if (mode === 'menu') {
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-red-100 to-blue-100 flex items-center justify-center p-4" },
+              React.createElement('div', { className: "absolute top-8 right-0 transform rotate-12 z-10" },
+                React.createElement('div', { className: "relative" },
+                  React.createElement('div', { className: "bg-gradient-to-r from-pink-500 via-purple-500 to-pink-600 text-white px-12 py-4 shadow-xl" },
+                    React.createElement('div', { className: "text-lg font-bold tracking-wide" }, "Good luck Isla-Rose! 🌟")
+                  ),
+                  React.createElement('div', { className: "absolute left-0 top-full" },
+                    React.createElement('div', { className: "w-0 h-0 border-t-8 border-r-8 border-t-pink-700 border-r-transparent" })
+                  ),
+                  React.createElement('div', { className: "absolute right-0 top-full" },
+                    React.createElement('div', { className: "w-0 h-0 border-t-8 border-l-8 border-t-pink-700 border-l-transparent" })
+                  )
+                )
+              ),
+              React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-md w-full" },
+                React.createElement('h1', { className: "text-3xl font-bold text-center mb-2 text-gray-800" }, "한글 퀴즈"),
+                React.createElement('p', { className: "text-center text-gray-600 mb-8" }, "Korean Hangul Quiz"),
+                React.createElement('div', { className: "space-y-4" },
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('basicVowels'),
+                    className: "w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "기본 모음"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Basic Vowels (10 characters)")
+                  ),
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('complexVowels'),
+                    className: "w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "복합 모음"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Complex Vowels (11 characters)")
+                  ),
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('basicConsonants'),
+                    className: "w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "기본 자음"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Basic Consonants (14 characters)")
+                  ),
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('doubleConsonants'),
+                    className: "w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "쌍자음"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Double Consonants (5 characters)")
+                  ),
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('commonSyllables'),
+                    className: "w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "기본 음절"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Common Syllables (56 characters)")
+                  )
+                ),
+                React.createElement('div', { className: "mt-8 p-4 bg-gray-50 rounded-lg" },
+                  React.createElement('h3', { className: "font-semibold text-gray-700 mb-2" }, "Learning Path:"),
+                  React.createElement('ol', { className: "text-sm text-gray-600 space-y-1" },
+                    React.createElement('li', null, "1. Start with Basic Vowels"),
+                    React.createElement('li', null, "2. Learn Basic Consonants"),
+                    React.createElement('li', null, "3. Practice Common Syllables"),
+                    React.createElement('li', null, "4. Master Complex Vowels"),
+                    React.createElement('li', null, "5. Challenge yourself with Double Consonants")
+                  )
+                )
+              )
+            );
+          }
+
+          return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-rose-100 to-teal-100 flex items-center justify-center p-4" },
+            React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full" },
+              React.createElement('div', { className: "flex justify-between items-center mb-6" },
+                React.createElement('button', { 
+                  onClick: backToMenu,
+                  className: "text-gray-600 hover:text-gray-800 text-sm font-medium"
+                }, "← Back to Menu"),
+                React.createElement('div', { className: "text-sm text-gray-600" }, `Score: ${score.correct}/${score.total}`)
+              ),
+              currentQuestion && React.createElement('div', { className: "text-center" },
+                React.createElement('div', { className: "text-8xl font-bold mb-8 text-gray-800" }, currentQuestion.char),
+                !showAnswer && !selectedAnswer && React.createElement('div', { className: "space-y-3" },
+                  React.createElement('p', { className: "text-lg text-gray-600 mb-6" }, "How do you read this character?"),
+                  options.map((option, index) =>
+                    React.createElement('button', {
+                      key: index,
+                      onClick: () => handleAnswer(option),
+                      className: "w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200"
+                    }, option)
+                  )
+                ),
+                selectedAnswer && !showAnswer && React.createElement('div', { className: "text-center" },
+                  React.createElement('div', { 
+                    className: `text-2xl font-bold mb-4 ${selectedAnswer === currentQuestion.reading ? 'text-green-600' : 'text-red-600'}`
+                  }, selectedAnswer === currentQuestion.reading ? '정답! Correct!' : 'Wrong!'),
+                  selectedAnswer === currentQuestion.reading && React.createElement('div', { className: "text-lg text-gray-600" }, 
+                    `${currentQuestion.char} = ${currentQuestion.reading}`
+                  )
+                ),
+                showAnswer && React.createElement('div', { className: "text-center" },
+                  React.createElement('div', { className: "text-red-600 text-xl font-bold mb-4" }, "Wrong!"),
+                  React.createElement('div', { className: "text-2xl text-gray-800 mb-2" },
+                    "Correct answer: ",
+                    React.createElement('span', { className: "font-bold text-blue-600" }, currentQuestion.reading)
+                  ),
+                  React.createElement('div', { className: "text-lg text-gray-600" }, 
+                    `${currentQuestion.char} = ${currentQuestion.reading}`
+                  ),
+                  React.createElement('div', { className: "text-sm text-gray-500 mt-4" }, "Next question in a moment...")
+                )
+              )
+            )
+          );
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
