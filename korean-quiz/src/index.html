@@ -19,54 +19,66 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const KoreanQuizApp = () => {
+        const KoreanLearningApp = () => {
           // Hangul character databases
           const basicVowels = [
-            { char: 'ㅏ', reading: 'a' }, { char: 'ㅑ', reading: 'ya' }, { char: 'ㅓ', reading: 'eo' }, { char: 'ㅕ', reading: 'yeo' },
-            { char: 'ㅗ', reading: 'o' }, { char: 'ㅛ', reading: 'yo' }, { char: 'ㅜ', reading: 'u' }, { char: 'ㅠ', reading: 'yu' },
-            { char: 'ㅡ', reading: 'eu' }, { char: 'ㅣ', reading: 'i' }
-          ];
-
-          const complexVowels = [
-            { char: 'ㅐ', reading: 'ae' }, { char: 'ㅒ', reading: 'yae' }, { char: 'ㅔ', reading: 'e' }, { char: 'ㅖ', reading: 'ye' },
-            { char: 'ㅘ', reading: 'wa' }, { char: 'ㅙ', reading: 'wae' }, { char: 'ㅚ', reading: 'oe' }, { char: 'ㅝ', reading: 'wo' },
-            { char: 'ㅞ', reading: 'we' }, { char: 'ㅟ', reading: 'wi' }, { char: 'ㅢ', reading: 'ui' }
+            { char: 'ㅏ', reading: 'a', description: 'Like "ah" in father' },
+            { char: 'ㅑ', reading: 'ya', description: 'Like "ya" in yard' },
+            { char: 'ㅓ', reading: 'eo', description: 'Like "uh" in but' },
+            { char: 'ㅕ', reading: 'yeo', description: 'Like "yuh"' },
+            { char: 'ㅗ', reading: 'o', description: 'Like "oh" in go' },
+            { char: 'ㅛ', reading: 'yo', description: 'Like "yo" in yoga' },
+            { char: 'ㅜ', reading: 'u', description: 'Like "oo" in moon' },
+            { char: 'ㅠ', reading: 'yu', description: 'Like "you"' },
+            { char: 'ㅡ', reading: 'eu', description: 'Like "uh" (lips spread)' },
+            { char: 'ㅣ', reading: 'i', description: 'Like "ee" in see' }
           ];
 
           const basicConsonants = [
-            { char: 'ㄱ', reading: 'g/k' }, { char: 'ㄴ', reading: 'n' }, { char: 'ㄷ', reading: 'd/t' }, { char: 'ㄹ', reading: 'r/l' },
-            { char: 'ㅁ', reading: 'm' }, { char: 'ㅂ', reading: 'b/p' }, { char: 'ㅅ', reading: 's' }, { char: 'ㅇ', reading: 'ng/silent' },
-            { char: 'ㅈ', reading: 'j' }, { char: 'ㅊ', reading: 'ch' }, { char: 'ㅋ', reading: 'k' }, { char: 'ㅌ', reading: 't' },
-            { char: 'ㅍ', reading: 'p' }, { char: 'ㅎ', reading: 'h' }
+            { char: 'ㄱ', reading: 'g/k', description: 'Like "g" in go or "k" in ski' },
+            { char: 'ㄴ', reading: 'n', description: 'Like "n" in no' },
+            { char: 'ㄷ', reading: 'd/t', description: 'Like "d" in do or "t" in stop' },
+            { char: 'ㄹ', reading: 'r/l', description: 'Between "r" and "l"' },
+            { char: 'ㅁ', reading: 'm', description: 'Like "m" in mom' },
+            { char: 'ㅂ', reading: 'b/p', description: 'Like "b" in boy or "p" in spy' },
+            { char: 'ㅅ', reading: 's', description: 'Like "s" in see' },
+            { char: 'ㅇ', reading: 'ng/silent', description: 'Silent at start, "ng" at end' },
+            { char: 'ㅈ', reading: 'j', description: 'Like "j" in jump' },
+            { char: 'ㅊ', reading: 'ch', description: 'Like "ch" in chair' },
+            { char: 'ㅋ', reading: 'k', description: 'Like "k" in key (aspirated)' },
+            { char: 'ㅌ', reading: 't', description: 'Like "t" in top (aspirated)' },
+            { char: 'ㅍ', reading: 'p', description: 'Like "p" in pop (aspirated)' },
+            { char: 'ㅎ', reading: 'h', description: 'Like "h" in hat' }
           ];
 
-          const doubleConsonants = [
-            { char: 'ㄲ', reading: 'kk' }, { char: 'ㄸ', reading: 'tt' }, { char: 'ㅃ', reading: 'pp' },
-            { char: 'ㅆ', reading: 'ss' }, { char: 'ㅉ', reading: 'jj' }
+          const syllableExamples = [
+            { char: '가', reading: 'ga', breakdown: 'ㄱ + ㅏ', meaning: 'to go' },
+            { char: '나', reading: 'na', breakdown: 'ㄴ + ㅏ', meaning: 'I/me' },
+            { char: '다', reading: 'da', breakdown: 'ㄷ + ㅏ', meaning: 'all' },
+            { char: '마', reading: 'ma', breakdown: 'ㅁ + ㅏ', meaning: 'hemp' },
+            { char: '바', reading: 'ba', breakdown: 'ㅂ + ㅏ', meaning: 'rock' },
+            { char: '사', reading: 'sa', breakdown: 'ㅅ + ㅏ', meaning: 'four' },
+            { char: '아', reading: 'a', breakdown: 'ㅇ + ㅏ', meaning: 'ah!' },
+            { char: '자', reading: 'ja', breakdown: 'ㅈ + ㅏ', meaning: 'ruler' }
           ];
 
-          const commonSyllables = [
-            { char: '가', reading: 'ga' }, { char: '나', reading: 'na' }, { char: '다', reading: 'da' }, { char: '라', reading: 'ra' },
-            { char: '마', reading: 'ma' }, { char: '바', reading: 'ba' }, { char: '사', reading: 'sa' }, { char: '아', reading: 'a' },
-            { char: '자', reading: 'ja' }, { char: '차', reading: 'cha' }, { char: '카', reading: 'ka' }, { char: '타', reading: 'ta' },
-            { char: '파', reading: 'pa' }, { char: '하', reading: 'ha' }, { char: '고', reading: 'go' }, { char: '노', reading: 'no' },
-            { char: '도', reading: 'do' }, { char: '로', reading: 'ro' }, { char: '모', reading: 'mo' }, { char: '보', reading: 'bo' },
-            { char: '소', reading: 'so' }, { char: '오', reading: 'o' }, { char: '조', reading: 'jo' }, { char: '초', reading: 'cho' },
-            { char: '코', reading: 'ko' }, { char: '토', reading: 'to' }, { char: '포', reading: 'po' }, { char: '호', reading: 'ho' },
-            { char: '구', reading: 'gu' }, { char: '누', reading: 'nu' }, { char: '두', reading: 'du' }, { char: '루', reading: 'ru' },
-            { char: '무', reading: 'mu' }, { char: '부', reading: 'bu' }, { char: '수', reading: 'su' }, { char: '우', reading: 'u' },
-            { char: '주', reading: 'ju' }, { char: '추', reading: 'chu' }, { char: '쿠', reading: 'ku' }, { char: '투', reading: 'tu' },
-            { char: '푸', reading: 'pu' }, { char: '후', reading: 'hu' }, { char: '그', reading: 'geu' }, { char: '느', reading: 'neu' },
-            { char: '드', reading: 'deu' }, { char: '르', reading: 'reu' }, { char: '므', reading: 'meu' }, { char: '브', reading: 'beu' },
-            { char: '스', reading: 'seu' }, { char: '으', reading: 'eu' }, { char: '즈', reading: 'jeu' }, { char: '츠', reading: 'cheu' },
-            { char: '크', reading: 'keu' }, { char: '트', reading: 'teu' }, { char: '프', reading: 'peu' }, { char: '흐', reading: 'heu' },
-            { char: '기', reading: 'gi' }, { char: '니', reading: 'ni' }, { char: '디', reading: 'di' }, { char: '리', reading: 'ri' },
-            { char: '미', reading: 'mi' }, { char: '비', reading: 'bi' }, { char: '시', reading: 'si' }, { char: '이', reading: 'i' },
-            { char: '지', reading: 'ji' }, { char: '치', reading: 'chi' }, { char: '키', reading: 'ki' }, { char: '티', reading: 'ti' },
-            { char: '피', reading: 'pi' }, { char: '히', reading: 'hi' }
-          ];
+          const allQuizCharacters = {
+            basicVowels,
+            basicConsonants,
+            syllableExamples,
+            complexVowels: [
+              { char: 'ㅐ', reading: 'ae' }, { char: 'ㅒ', reading: 'yae' }, { char: 'ㅔ', reading: 'e' }, { char: 'ㅖ', reading: 'ye' },
+              { char: 'ㅘ', reading: 'wa' }, { char: 'ㅙ', reading: 'wae' }, { char: 'ㅚ', reading: 'oe' }, { char: 'ㅝ', reading: 'wo' },
+              { char: 'ㅞ', reading: 'we' }, { char: 'ㅟ', reading: 'wi' }, { char: 'ㅢ', reading: 'ui' }
+            ],
+            doubleConsonants: [
+              { char: 'ㄲ', reading: 'kk' }, { char: 'ㄸ', reading: 'tt' }, { char: 'ㅃ', reading: 'pp' },
+              { char: 'ㅆ', reading: 'ss' }, { char: 'ㅉ', reading: 'jj' }
+            ]
+          };
 
-          const [mode, setMode] = React.useState('menu');
+          const [mode, setMode] = React.useState('home');
+          const [learningSection, setLearningSection] = React.useState('intro');
           const [currentSet, setCurrentSet] = React.useState([]);
           const [currentQuestion, setCurrentQuestion] = React.useState(null);
           const [options, setOptions] = React.useState([]);
@@ -78,11 +90,11 @@
           const startQuiz = (quizType) => {
             let characterSet;
             switch(quizType) {
-              case 'basicVowels': characterSet = basicVowels; break;
-              case 'complexVowels': characterSet = complexVowels; break;
-              case 'basicConsonants': characterSet = basicConsonants; break;
-              case 'doubleConsonants': characterSet = doubleConsonants; break;
-              case 'commonSyllables': characterSet = commonSyllables; break;
+              case 'basicVowels': characterSet = allQuizCharacters.basicVowels; break;
+              case 'basicConsonants': characterSet = allQuizCharacters.basicConsonants; break;
+              case 'syllableExamples': characterSet = allQuizCharacters.syllableExamples; break;
+              case 'complexVowels': characterSet = allQuizCharacters.complexVowels; break;
+              case 'doubleConsonants': characterSet = allQuizCharacters.doubleConsonants; break;
               default: return;
             }
             
@@ -137,11 +149,8 @@
             }
           };
 
-          const backToMenu = () => {
-            setMode('menu');
-          };
-
-          if (mode === 'menu') {
+          // Home Page
+          if (mode === 'home') {
             return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-red-100 to-blue-100 flex items-center justify-center p-4" },
               React.createElement('div', { className: "absolute top-8 right-0 transform rotate-12 z-10" },
                 React.createElement('div', { className: "relative" },
@@ -156,107 +165,352 @@
                   )
                 )
               ),
+              
               React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-md w-full" },
                 React.createElement('h1', { className: "text-3xl font-bold text-center mb-2 text-gray-800" }, "한글 퀴즈"),
-                React.createElement('p', { className: "text-center text-gray-600 mb-8" }, "Korean Hangul Quiz"),
-                React.createElement('div', { className: "space-y-4" },
+                React.createElement('p', { className: "text-center text-gray-600 mb-8" }, "Korean Hangul Learning"),
+                
+                React.createElement('div', { className: "space-y-6" },
                   React.createElement('button', { 
-                    onClick: () => startQuiz('basicVowels'),
-                    className: "w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                    onClick: () => setMode('learn'),
+                    className: "w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-6 px-6 rounded-lg transition duration-200 transform hover:scale-105 shadow-lg"
                   },
-                    React.createElement('div', { className: "text-2xl mb-1" }, "기본 모음"),
-                    React.createElement('div', { className: "text-sm opacity-90" }, "Basic Vowels (10 characters)")
+                    React.createElement('div', { className: "text-3xl mb-2" }, "📚"),
+                    React.createElement('div', { className: "text-xl mb-1" }, "LEARN"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Study Hangul fundamentals")
                   ),
+                  
                   React.createElement('button', { 
-                    onClick: () => startQuiz('complexVowels'),
-                    className: "w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                    onClick: () => setMode('quiz'),
+                    className: "w-full bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white font-semibold py-6 px-6 rounded-lg transition duration-200 transform hover:scale-105 shadow-lg"
                   },
-                    React.createElement('div', { className: "text-2xl mb-1" }, "복합 모음"),
-                    React.createElement('div', { className: "text-sm opacity-90" }, "Complex Vowels (11 characters)")
-                  ),
-                  React.createElement('button', { 
-                    onClick: () => startQuiz('basicConsonants'),
-                    className: "w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
-                  },
-                    React.createElement('div', { className: "text-2xl mb-1" }, "기본 자음"),
-                    React.createElement('div', { className: "text-sm opacity-90" }, "Basic Consonants (14 characters)")
-                  ),
-                  React.createElement('button', { 
-                    onClick: () => startQuiz('doubleConsonants'),
-                    className: "w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
-                  },
-                    React.createElement('div', { className: "text-2xl mb-1" }, "쌍자음"),
-                    React.createElement('div', { className: "text-sm opacity-90" }, "Double Consonants (5 characters)")
-                  ),
-                  React.createElement('button', { 
-                    onClick: () => startQuiz('commonSyllables'),
-                    className: "w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
-                  },
-                    React.createElement('div', { className: "text-2xl mb-1" }, "기본 음절"),
-                    React.createElement('div', { className: "text-sm opacity-90" }, "Common Syllables (56 characters)")
+                    React.createElement('div', { className: "text-3xl mb-2" }, "🎯"),
+                    React.createElement('div', { className: "text-xl mb-1" }, "QUIZ"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Test your knowledge")
                   )
                 ),
-                React.createElement('div', { className: "mt-8 p-4 bg-gray-50 rounded-lg" },
-                  React.createElement('h3', { className: "font-semibold text-gray-700 mb-2" }, "Learning Path:"),
-                  React.createElement('ol', { className: "text-sm text-gray-600 space-y-1" },
-                    React.createElement('li', null, "1. Start with Basic Vowels"),
-                    React.createElement('li', null, "2. Learn Basic Consonants"),
-                    React.createElement('li', null, "3. Practice Common Syllables"),
-                    React.createElement('li', null, "4. Master Complex Vowels"),
-                    React.createElement('li', null, "5. Challenge yourself with Double Consonants")
+                
+                React.createElement('div', { className: "mt-8 p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg" },
+                  React.createElement('p', { className: "text-sm text-gray-600 text-center" },
+                    React.createElement('strong', null, "New to Hangul?"),
+                    " Start with LEARN to master the basics first! 🚀"
                   )
                 )
               )
             );
           }
 
-          return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-rose-100 to-teal-100 flex items-center justify-center p-4" },
-            React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full" },
-              React.createElement('div', { className: "flex justify-between items-center mb-6" },
-                React.createElement('button', { 
-                  onClick: backToMenu,
-                  className: "text-gray-600 hover:text-gray-800 text-sm font-medium"
-                }, "← Back to Menu"),
-                React.createElement('div', { className: "text-sm text-gray-600" }, `Score: ${score.correct}/${score.total}`)
-              ),
-              currentQuestion && React.createElement('div', { className: "text-center" },
-                React.createElement('div', { className: "text-8xl font-bold mb-8 text-gray-800" }, currentQuestion.char),
-                !showAnswer && !selectedAnswer && React.createElement('div', { className: "space-y-3" },
-                  React.createElement('p', { className: "text-lg text-gray-600 mb-6" }, "How do you read this character?"),
-                  options.map((option, index) =>
-                    React.createElement('button', {
-                      key: index,
-                      onClick: () => handleAnswer(option),
-                      className: "w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200"
-                    }, option)
+          // Learning Page
+          if (mode === 'learn') {
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-purple-100 to-pink-100 p-4" },
+              React.createElement('div', { className: "max-w-4xl mx-auto" },
+                React.createElement('div', { className: "flex justify-between items-center mb-8" },
+                  React.createElement('button', { 
+                    onClick: () => setMode('home'),
+                    className: "text-gray-600 hover:text-gray-800 text-sm font-medium flex items-center"
+                  }, "← Back to Home"),
+                  React.createElement('h1', { className: "text-3xl font-bold text-gray-800" }, "📚 Learn Hangul"),
+                  React.createElement('button', { 
+                    onClick: () => setMode('quiz'),
+                    className: "bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm font-medium"
+                  }, "Ready for Quiz? 🎯")
+                ),
+
+                React.createElement('div', { className: "bg-white rounded-lg p-6 mb-6 shadow-lg" },
+                  React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-4 gap-4" },
+                    React.createElement('button', { 
+                      onClick: () => setLearningSection('intro'),
+                      className: `p-4 rounded-lg transition ${learningSection === 'intro' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                    },
+                      React.createElement('div', { className: "text-2xl mb-1" }, "📖"),
+                      React.createElement('div', { className: "text-sm font-medium" }, "Introduction")
+                    ),
+                    React.createElement('button', { 
+                      onClick: () => setLearningSection('vowels'),
+                      className: `p-4 rounded-lg transition ${learningSection === 'vowels' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                    },
+                      React.createElement('div', { className: "text-2xl mb-1" }, "🔤"),
+                      React.createElement('div', { className: "text-sm font-medium" }, "Vowels")
+                    ),
+                    React.createElement('button', { 
+                      onClick: () => setLearningSection('consonants'),
+                      className: `p-4 rounded-lg transition ${learningSection === 'consonants' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                    },
+                      React.createElement('div', { className: "text-2xl mb-1" }, "🔡"),
+                      React.createElement('div', { className: "text-sm font-medium" }, "Consonants")
+                    ),
+                    React.createElement('button', { 
+                      onClick: () => setLearningSection('syllables'),
+                      className: `p-4 rounded-lg transition ${learningSection === 'syllables' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                    },
+                      React.createElement('div', { className: "text-2xl mb-1" }, "🔠"),
+                      React.createElement('div', { className: "text-sm font-medium" }, "Syllables")
+                    )
                   )
                 ),
-                selectedAnswer && !showAnswer && React.createElement('div', { className: "text-center" },
-                  React.createElement('div', { 
-                    className: `text-2xl font-bold mb-4 ${selectedAnswer === currentQuestion.reading ? 'text-green-600' : 'text-red-600'}`
-                  }, selectedAnswer === currentQuestion.reading ? '정답! Correct!' : 'Wrong!'),
-                  selectedAnswer === currentQuestion.reading && React.createElement('div', { className: "text-lg text-gray-600" }, 
-                    `${currentQuestion.char} = ${currentQuestion.reading}`
+
+                React.createElement('div', { className: "bg-white rounded-lg p-6 shadow-lg" },
+                  learningSection === 'intro' && React.createElement('div', null,
+                    React.createElement('h2', { className: "text-2xl font-bold mb-4 text-gray-800" }, "Welcome to Hangul! 🇰🇷"),
+                    React.createElement('div', { className: "space-y-4 text-gray-700 leading-relaxed" },
+                      React.createElement('p', null, 
+                        React.createElement('strong', null, "Hangul (한글)"),
+                        " is the Korean alphabet, created by King Sejong in 1443. It's considered one of the most logical writing systems in the world!"
+                      ),
+                      
+                      React.createElement('div', { className: "bg-blue-50 p-4 rounded-lg" },
+                        React.createElement('h3', { className: "font-bold text-blue-800 mb-2" }, "Why Hangul is Amazing:"),
+                        React.createElement('ul', { className: "list-disc list-inside space-y-1 text-blue-700" },
+                          React.createElement('li', null, "Only 40 letters to learn (vs 2000+ Chinese characters!)"),
+                          React.createElement('li', null, "Letters combine into blocks to form syllables"),
+                          React.createElement('li', null, "Very phonetic - you can read anything once you know the basics"),
+                          React.createElement('li', null, "Designed to be easy to learn for everyone")
+                        )
+                      ),
+
+                      React.createElement('div', { className: "bg-green-50 p-4 rounded-lg" },
+                        React.createElement('h3', { className: "font-bold text-green-800 mb-2" }, "Learning Path:"),
+                        React.createElement('ol', { className: "list-decimal list-inside space-y-1 text-green-700" },
+                          React.createElement('li', null, React.createElement('strong', null, "Vowels"), " - 10 basic vowel sounds"),
+                          React.createElement('li', null, React.createElement('strong', null, "Consonants"), " - 14 basic consonant sounds"),
+                          React.createElement('li', null, React.createElement('strong', null, "Syllables"), " - How to combine them into blocks"),
+                          React.createElement('li', null, React.createElement('strong', null, "Practice"), " - Quiz yourself to master reading!")
+                        )
+                      ),
+
+                      React.createElement('p', { className: "text-center" },
+                        React.createElement('strong', null, "Ready to start?"),
+                        " Click on ",
+                        React.createElement('span', { className: "bg-blue-100 px-2 py-1 rounded" }, "Vowels"),
+                        " above!"
+                      )
+                    )
+                  ),
+
+                  learningSection === 'vowels' && React.createElement('div', null,
+                    React.createElement('h2', { className: "text-2xl font-bold mb-4 text-gray-800" }, "Basic Vowels (모음)"),
+                    React.createElement('p', { className: "text-gray-600 mb-6" }, "Master these 10 vowel sounds first!"),
+                    
+                    React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
+                      basicVowels.map(vowel =>
+                        React.createElement('div', {
+                          key: vowel.char,
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
+                        },
+                          React.createElement('div', { className: "flex items-center space-x-4" },
+                            React.createElement('div', { className: "text-4xl font-bold text-blue-600" }, vowel.char),
+                            React.createElement('div', null,
+                              React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, vowel.reading),
+                              React.createElement('div', { className: "text-sm text-gray-600" }, vowel.description)
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    
+                    React.createElement('div', { className: "mt-6 text-center" },
+                      React.createElement('button', { 
+                        onClick: () => startQuiz('basicVowels'),
+                        className: "bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 font-medium"
+                      }, "Practice Vowels Quiz 🎯")
+                    )
+                  ),
+
+                  learningSection === 'consonants' && React.createElement('div', null,
+                    React.createElement('h2', { className: "text-2xl font-bold mb-4 text-gray-800" }, "Basic Consonants (자음)"),
+                    React.createElement('p', { className: "text-gray-600 mb-6" }, "Learn these 14 consonant sounds!"),
+                    
+                    React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
+                      basicConsonants.map(consonant =>
+                        React.createElement('div', {
+                          key: consonant.char,
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
+                        },
+                          React.createElement('div', { className: "flex items-center space-x-4" },
+                            React.createElement('div', { className: "text-4xl font-bold text-green-600" }, consonant.char),
+                            React.createElement('div', null,
+                              React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, consonant.reading),
+                              React.createElement('div', { className: "text-sm text-gray-600" }, consonant.description)
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    
+                    React.createElement('div', { className: "mt-6 text-center" },
+                      React.createElement('button', { 
+                        onClick: () => startQuiz('basicConsonants'),
+                        className: "bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 font-medium"
+                      }, "Practice Consonants Quiz 🎯")
+                    )
+                  ),
+
+                  learningSection === 'syllables' && React.createElement('div', null,
+                    React.createElement('h2', { className: "text-2xl font-bold mb-4 text-gray-800" }, "Building Syllables (음절)"),
+                    React.createElement('p', { className: "text-gray-600 mb-6" }, "See how consonants and vowels combine!"),
+                    
+                    React.createElement('div', { className: "bg-yellow-50 p-4 rounded-lg mb-6" },
+                      React.createElement('h3', { className: "font-bold text-yellow-800 mb-2" }, "How It Works:"),
+                      React.createElement('p', { className: "text-yellow-700" }, "Hangul letters combine into square blocks. Each block = one syllable!"),
+                      React.createElement('div', { className: "mt-2 text-2xl text-center" },
+                        React.createElement('span', { className: "bg-white px-3 py-1 rounded mr-2" }, "ㄱ"),
+                        " + ",
+                        React.createElement('span', { className: "bg-white px-3 py-1 rounded mx-2" }, "ㅏ"),
+                        " = ",
+                        React.createElement('span', { className: "bg-blue-100 px-3 py-1 rounded ml-2 font-bold" }, "가")
+                      )
+                    ),
+                    
+                    React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
+                      syllableExamples.map(syllable =>
+                        React.createElement('div', {
+                          key: syllable.char,
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
+                        },
+                          React.createElement('div', { className: "flex items-center space-x-4" },
+                            React.createElement('div', { className: "text-4xl font-bold text-purple-600" }, syllable.char),
+                            React.createElement('div', null,
+                              React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, syllable.reading),
+                              React.createElement('div', { className: "text-sm text-gray-600" }, syllable.breakdown),
+                              React.createElement('div', { className: "text-xs text-purple-600" }, "Meaning: ", syllable.meaning)
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    
+                    React.createElement('div', { className: "mt-6 text-center" },
+                      React.createElement('button', { 
+                        onClick: () => startQuiz('syllableExamples'),
+                        className: "bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 font-medium"
+                      }, "Practice Syllables Quiz 🎯")
+                    )
                   )
                 ),
-                showAnswer && React.createElement('div', { className: "text-center" },
-                  React.createElement('div', { className: "text-red-600 text-xl font-bold mb-4" }, "Wrong!"),
-                  React.createElement('div', { className: "text-2xl text-gray-800 mb-2" },
-                    "Correct answer: ",
-                    React.createElement('span', { className: "font-bold text-blue-600" }, currentQuestion.reading)
-                  ),
-                  React.createElement('div', { className: "text-lg text-gray-600" }, 
-                    `${currentQuestion.char} = ${currentQuestion.reading}`
-                  ),
-                  React.createElement('div', { className: "text-sm text-gray-500 mt-4" }, "Next question in a moment...")
+
+                React.createElement('div', { className: "mt-8 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-lg p-6 text-center" },
+                  React.createElement('h3', { className: "text-xl font-bold mb-2" }, "Feeling confident? 🚀"),
+                  React.createElement('p', { className: "mb-4" }, "Test your knowledge with our interactive quiz!"),
+                  React.createElement('button', { 
+                    onClick: () => setMode('quiz'),
+                    className: "bg-white text-green-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
+                  }, "Start Quiz Now! 🎯")
                 )
               )
-            )
-          );
+            );
+          }
+
+          // Quiz Page
+          if (mode === 'quiz') {
+            if (!currentQuestion) {
+              return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-rose-100 to-teal-100 flex items-center justify-center p-4" },
+                React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-md w-full" },
+                  React.createElement('div', { className: "flex justify-between items-center mb-6" },
+                    React.createElement('button', { 
+                      onClick: () => setMode('home'),
+                      className: "text-gray-600 hover:text-gray-800 text-sm font-medium"
+                    }, "← Back to Home"),
+                    React.createElement('button', { 
+                      onClick: () => setMode('learn'),
+                      className: "bg-blue-500 text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-600"
+                    }, "Need Review? 📚")
+                  ),
+
+                  React.createElement('h1', { className: "text-3xl font-bold text-center mb-2 text-gray-800" }, "🎯 Quiz Time!"),
+                  React.createElement('p', { className: "text-center text-gray-600 mb-8" }, "Choose what to practice:"),
+                  
+                  React.createElement('div', { className: "space-y-4" },
+                    React.createElement('button', { 
+                      onClick: () => startQuiz('basicVowels'),
+                      className: "w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200"
+                    },
+                      React.createElement('div', { className: "text-xl mb-1" }, "Basic Vowels"),
+                      React.createElement('div', { className: "text-sm opacity-90" }, "10 characters")
+                    ),
+                    
+                    React.createElement('button', { 
+                      onClick: () => startQuiz('basicConsonants'),
+                      className: "w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200"
+                    },
+                      React.createElement('div', { className: "text-xl mb-1" }, "Basic Consonants"),
+                      React.createElement('div', { className: "text-sm opacity-90" }, "14 characters")
+                    ),
+                    
+                    React.createElement('button', { 
+                      onClick: () => startQuiz('syllableExamples'),
+                      className: "w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200"
+                    },
+                      React.createElement('div', { className: "text-xl mb-1" }, "Common Syllables"),
+                      React.createElement('div', { className: "text-sm opacity-90" }, "8 examples")
+                    )
+                  )
+                )
+              );
+            }
+
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-rose-100 to-teal-100 flex items-center justify-center p-4" },
+              React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full" },
+                React.createElement('div', { className: "flex justify-between items-center mb-6" },
+                  React.createElement('button', { 
+                    onClick: () => {
+                      setCurrentQuestion(null);
+                      setMode('quiz');
+                    },
+                    className: "text-gray-600 hover:text-gray-800 text-sm font-medium"
+                  }, "← Back to Quiz Menu"),
+                  React.createElement('div', { className: "text-sm text-gray-600" }, 
+                    "Score: ", score.correct, "/", score.total
+                  ),
+                  React.createElement('button', { 
+                    onClick: () => setMode('learn'),
+                    className: "bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600"
+                  }, "Need Review? 📚")
+                ),
+
+                React.createElement('div', { className: "text-center" },
+                  React.createElement('div', { className: "text-8xl font-bold mb-8 text-gray-800" },
+                    currentQuestion.char
+                  ),
+
+                  !showAnswer && !selectedAnswer && React.createElement('div', { className: "space-y-3" },
+                    React.createElement('p', { className: "text-lg text-gray-600 mb-6" }, "How do you read this character?"),
+                    options.map((option, index) =>
+                      React.createElement('button', {
+                        key: index,
+                        onClick: () => handleAnswer(option),
+                        className: "w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200"
+                      }, option)
+                    )
+                  ),
+
+                  selectedAnswer && !showAnswer && React.createElement('div', { className: "text-center" },
+                    React.createElement('div', { 
+                      className: `text-2xl font-bold mb-4 ${selectedAnswer === currentQuestion.reading ? 'text-green-600' : 'text-red-600'}`
+                    }, selectedAnswer === currentQuestion.reading ? '정답! Correct!' : 'Wrong!'),
+                    selectedAnswer === currentQuestion.reading && React.createElement('div', { className: "text-lg text-gray-600" }, 
+                      currentQuestion.char, " = ", currentQuestion.reading
+                    )
+                  ),
+
+                  showAnswer && React.createElement('div', { className: "text-center" },
+                    React.createElement('div', { className: "text-red-600 text-xl font-bold mb-4" }, "Wrong!"),
+                    React.createElement('div', { className: "text-2xl text-gray-800 mb-2" },
+                      "Correct answer: ",
+                      React.createElement('span', { className: "font-bold text-blue-600" }, currentQuestion.reading)
+                    ),
+                    React.createElement('div', { className: "text-lg text-gray-600" }, 
+                      currentQuestion.char, " = ", currentQuestion.reading
+                    ),
+                    React.createElement('div', { className: "text-sm text-gray-500 mt-4" }, "Next question in a moment...")
+                  )
+                )
+              )
+            );
+          }
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<KoreanQuizApp />);
+        root.render(React.createElement(KoreanLearningApp));
     </script>
 </body>
 </html>
