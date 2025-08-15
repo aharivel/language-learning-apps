@@ -225,6 +225,15 @@
                     React.createElement('div', { className: "text-3xl mb-2" }, "🎯"),
                     React.createElement('div', { className: "text-xl mb-1" }, "QUIZ"),
                     React.createElement('div', { className: "text-sm opacity-90" }, "Test your knowledge")
+                  ),
+
+                  React.createElement('button', { 
+                    onClick: () => setMode('fun'),
+                    className: "w-full bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-semibold py-6 px-6 rounded-lg transition duration-200 transform hover:scale-105 shadow-lg"
+                  },
+                    React.createElement('div', { className: "text-3xl mb-2" }, "🎮"),
+                    React.createElement('div', { className: "text-xl mb-1" }, "FUN WITH KOREAN"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Explore Korean culture & tools")
                   )
                 ),
                 
@@ -675,6 +684,125 @@
                       currentQuestion.char, " = ", currentQuestion.reading
                     ),
                     React.createElement('div', { className: "text-sm text-gray-500 mt-4" }, "Next question in a moment...")
+                  )
+                )
+              )
+            );
+          }
+
+          // Fun with Korean Page
+          if (mode === 'fun') {
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-pink-100 to-rose-100 p-4" },
+              React.createElement('div', { className: "max-w-4xl mx-auto" },
+                React.createElement('div', { className: "flex justify-between items-center mb-8" },
+                  React.createElement('button', { 
+                    onClick: () => setMode('home'),
+                    className: "text-gray-600 hover:text-gray-800 text-sm font-medium flex items-center"
+                  }, "← Back to Home"),
+                  React.createElement('h1', { className: "text-3xl font-bold text-gray-800" }, "🎮 Fun with Korean"),
+                  React.createElement('div', null)
+                ),
+
+                React.createElement('div', { className: "bg-white rounded-lg p-6 mb-6 shadow-lg" },
+                  React.createElement('h2', { className: "text-2xl font-bold mb-4 text-gray-800 text-center" }, "Explore Korean Culture & Tools"),
+                  React.createElement('p', { className: "text-gray-600 mb-6 text-center" }, "Discover fun tools and resources to enhance your Korean learning journey!")
+                ),
+
+                React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-6" },
+                  // Korean Name Converter
+                  React.createElement('a', {
+                    href: "https://www.lingobright.com/tools/korean-name-converter/",
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    className: "block bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-200 transform hover:scale-105 border-l-4 border-blue-500"
+                  },
+                    React.createElement('div', { className: "flex items-center mb-4" },
+                      React.createElement('div', { className: "text-4xl mr-4" }, "🏷️"),
+                      React.createElement('div', null,
+                        React.createElement('h3', { className: "text-xl font-bold text-gray-800" }, "Korean Name Converter"),
+                        React.createElement('p', { className: "text-sm text-blue-600" }, "lingobright.com")
+                      )
+                    ),
+                    React.createElement('p', { className: "text-gray-600 mb-4" }, "Convert your name into Korean Hangul! See how your name would be written and pronounced in Korean."),
+                    React.createElement('div', { className: "flex items-center text-blue-500 font-medium" },
+                      React.createElement('span', null, "Try it now"),
+                      React.createElement('span', { className: "ml-2" }, "→")
+                    )
+                  ),
+
+                  // Korean Name Generator
+                  React.createElement('a', {
+                    href: "https://blog.reedsy.com/character-name-generator/language/korean/",
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    className: "block bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-200 transform hover:scale-105 border-l-4 border-purple-500"
+                  },
+                    React.createElement('div', { className: "flex items-center mb-4" },
+                      React.createElement('div', { className: "text-4xl mr-4" }, "🎲"),
+                      React.createElement('div', null,
+                        React.createElement('h3', { className: "text-xl font-bold text-gray-800" }, "Korean Name Generator"),
+                        React.createElement('p', { className: "text-sm text-purple-600" }, "reedsy.com")
+                      )
+                    ),
+                    React.createElement('p', { className: "text-gray-600 mb-4" }, "Generate authentic Korean names! Perfect for characters, usernames, or just for fun exploration."),
+                    React.createElement('div', { className: "flex items-center text-purple-500 font-medium" },
+                      React.createElement('span', null, "Generate names"),
+                      React.createElement('span', { className: "ml-2" }, "→")
+                    )
+                  ),
+
+                  // Daily Dose of Hangul
+                  React.createElement('a', {
+                    href: "https://www.youtube.com/@DailyDoseofHangul",
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    className: "block bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-200 transform hover:scale-105 border-l-4 border-red-500"
+                  },
+                    React.createElement('div', { className: "flex items-center mb-4" },
+                      React.createElement('div', { className: "text-4xl mr-4" }, "📺"),
+                      React.createElement('div', null,
+                        React.createElement('h3', { className: "text-xl font-bold text-gray-800" }, "Daily Dose of Hangul"),
+                        React.createElement('p', { className: "text-sm text-red-600" }, "YouTube Channel")
+                      )
+                    ),
+                    React.createElement('p', { className: "text-gray-600 mb-4" }, "Watch engaging Korean language videos! Daily content to boost your Korean learning with fun lessons."),
+                    React.createElement('div', { className: "flex items-center text-red-500 font-medium" },
+                      React.createElement('span', null, "Watch videos"),
+                      React.createElement('span', { className: "ml-2" }, "→")
+                    )
+                  ),
+
+                  // Handwriting Practice (Coming Soon)
+                  React.createElement('div', {
+                    className: "bg-white rounded-lg p-6 shadow-lg border-l-4 border-gray-400 opacity-75"
+                  },
+                    React.createElement('div', { className: "flex items-center mb-4" },
+                      React.createElement('div', { className: "text-4xl mr-4" }, "✍️"),
+                      React.createElement('div', null,
+                        React.createElement('h3', { className: "text-xl font-bold text-gray-800" }, "Handwriting Practice"),
+                        React.createElement('p', { className: "text-sm text-gray-500" }, "Coming Soon!")
+                      )
+                    ),
+                    React.createElement('p', { className: "text-gray-600 mb-4" }, "Practice writing Korean characters by hand! Interactive exercises to improve your Hangul writing skills."),
+                    React.createElement('div', { className: "flex items-center text-gray-400 font-medium" },
+                      React.createElement('span', null, "Coming soon..."),
+                      React.createElement('span', { className: "ml-2" }, "⏳")
+                    )
+                  )
+                ),
+
+                React.createElement('div', { className: "mt-8 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-lg p-6 text-center" },
+                  React.createElement('h3', { className: "text-xl font-bold mb-2" }, "Keep Learning! 🚀"),
+                  React.createElement('p', { className: "mb-4" }, "Ready to practice what you've learned?"),
+                  React.createElement('div', { className: "flex justify-center space-x-4" },
+                    React.createElement('button', { 
+                      onClick: () => setMode('learn'),
+                      className: "bg-white text-pink-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
+                    }, "📚 Learn More"),
+                    React.createElement('button', { 
+                      onClick: () => setMode('quiz'),
+                      className: "bg-white text-pink-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
+                    }, "🎯 Take Quiz")
                   )
                 )
               )
