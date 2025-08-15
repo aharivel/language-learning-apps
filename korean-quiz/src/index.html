@@ -62,6 +62,32 @@
             { char: '자', reading: 'ja', breakdown: 'ㅈ + ㅏ', meaning: 'ruler' }
           ];
 
+          const basicSentences = [
+            { korean: '안녕하세요', reading: 'annyeong-haseyo', english: 'Hello (formal)', audio: '안녕하세요' },
+            { korean: '안녕', reading: 'annyeong', english: 'Hi/Bye (casual)', audio: '안녕' },
+            { korean: '감사합니다', reading: 'gamsahamnida', english: 'Thank you (formal)', audio: '감사합니다' },
+            { korean: '고마워', reading: 'gomawo', english: 'Thanks (casual)', audio: '고마워' },
+            { korean: '제 이름은...', reading: 'je ireumeun...', english: 'My name is...', audio: '제이름은' },
+            { korean: '죄송합니다', reading: 'joesonghamnida', english: 'I\'m sorry (formal)', audio: '죄송합니다' },
+            { korean: '네', reading: 'ne', english: 'Yes', audio: '네' },
+            { korean: '아니요', reading: 'aniyo', english: 'No', audio: '아니요' },
+            { korean: '안녕히 가세요', reading: 'annyeonghi gaseyo', english: 'Goodbye (to person leaving)', audio: '안녕히가세요' },
+            { korean: '안녕히 계세요', reading: 'annyeonghi gyeseyo', english: 'Goodbye (when you leave)', audio: '안녕히계세요' }
+          ];
+
+          const koreanNumbers = [
+            { number: 1, korean: '일', reading: 'il', native: '하나 (hana)', audio: '일' },
+            { number: 2, korean: '이', reading: 'i', native: '둘 (dul)', audio: '이' },
+            { number: 3, korean: '삼', reading: 'sam', native: '셋 (set)', audio: '삼' },
+            { number: 4, korean: '사', reading: 'sa', native: '넷 (net)', audio: '사' },
+            { number: 5, korean: '오', reading: 'o', native: '다섯 (daseot)', audio: '오' },
+            { number: 6, korean: '육', reading: 'yuk', native: '여섯 (yeoseot)', audio: '육' },
+            { number: 7, korean: '칠', reading: 'chil', native: '일곱 (ilgop)', audio: '칠' },
+            { number: 8, korean: '팔', reading: 'pal', native: '여덟 (yeodeol)', audio: '팔' },
+            { number: 9, korean: '구', reading: 'gu', native: '아홉 (ahop)', audio: '구' },
+            { number: 10, korean: '십', reading: 'sip', native: '열 (yeol)', audio: '십' }
+          ];
+
           const allQuizCharacters = {
             basicVowels,
             basicConsonants,
@@ -229,34 +255,48 @@
                 ),
 
                 React.createElement('div', { className: "bg-white rounded-lg p-6 mb-6 shadow-lg" },
-                  React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-4 gap-4" },
+                  React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" },
                     React.createElement('button', { 
                       onClick: () => setLearningSection('intro'),
-                      className: `p-4 rounded-lg transition ${learningSection === 'intro' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                      className: `p-3 rounded-lg transition ${learningSection === 'intro' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
                     },
-                      React.createElement('div', { className: "text-2xl mb-1" }, "📖"),
-                      React.createElement('div', { className: "text-sm font-medium" }, "Introduction")
+                      React.createElement('div', { className: "text-xl mb-1" }, "📖"),
+                      React.createElement('div', { className: "text-xs font-medium" }, "Intro")
                     ),
                     React.createElement('button', { 
                       onClick: () => setLearningSection('vowels'),
-                      className: `p-4 rounded-lg transition ${learningSection === 'vowels' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                      className: `p-3 rounded-lg transition ${learningSection === 'vowels' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
                     },
-                      React.createElement('div', { className: "text-2xl mb-1" }, "🔤"),
-                      React.createElement('div', { className: "text-sm font-medium" }, "Vowels")
+                      React.createElement('div', { className: "text-xl mb-1" }, "🔤"),
+                      React.createElement('div', { className: "text-xs font-medium" }, "Vowels")
                     ),
                     React.createElement('button', { 
                       onClick: () => setLearningSection('consonants'),
-                      className: `p-4 rounded-lg transition ${learningSection === 'consonants' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                      className: `p-3 rounded-lg transition ${learningSection === 'consonants' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
                     },
-                      React.createElement('div', { className: "text-2xl mb-1" }, "🔡"),
-                      React.createElement('div', { className: "text-sm font-medium" }, "Consonants")
+                      React.createElement('div', { className: "text-xl mb-1" }, "🔡"),
+                      React.createElement('div', { className: "text-xs font-medium" }, "Consonants")
                     ),
                     React.createElement('button', { 
                       onClick: () => setLearningSection('syllables'),
-                      className: `p-4 rounded-lg transition ${learningSection === 'syllables' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                      className: `p-3 rounded-lg transition ${learningSection === 'syllables' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
                     },
-                      React.createElement('div', { className: "text-2xl mb-1" }, "🔠"),
-                      React.createElement('div', { className: "text-sm font-medium" }, "Syllables")
+                      React.createElement('div', { className: "text-xl mb-1" }, "🔠"),
+                      React.createElement('div', { className: "text-xs font-medium" }, "Syllables")
+                    ),
+                    React.createElement('button', { 
+                      onClick: () => setLearningSection('sentences'),
+                      className: `p-3 rounded-lg transition ${learningSection === 'sentences' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                    },
+                      React.createElement('div', { className: "text-xl mb-1" }, "💬"),
+                      React.createElement('div', { className: "text-xs font-medium" }, "Phrases")
+                    ),
+                    React.createElement('button', { 
+                      onClick: () => setLearningSection('numbers'),
+                      className: `p-3 rounded-lg transition ${learningSection === 'numbers' ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200'}`
+                    },
+                      React.createElement('div', { className: "text-xl mb-1" }, "🔢"),
+                      React.createElement('div', { className: "text-xs font-medium" }, "Numbers")
                     )
                   )
                 ),
@@ -429,6 +469,94 @@
                         onClick: () => startQuiz('syllableExamples'),
                         className: "bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600 font-medium"
                       }, "Practice Syllables Quiz 🎯")
+                    )
+                  ),
+
+                  learningSection === 'sentences' && React.createElement('div', null,
+                    React.createElement('h2', { className: "text-2xl font-bold mb-4 text-gray-800" }, "Basic Phrases (기본 문장)"),
+                    React.createElement('p', { className: "text-gray-600 mb-6" }, "Essential phrases for everyday conversation!"),
+                    
+                    React.createElement('div', { className: "space-y-4" },
+                      basicSentences.map((sentence, index) =>
+                        React.createElement('div', {
+                          key: index,
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer",
+                          onClick: () => playAudio(sentence.audio)
+                        },
+                          React.createElement('div', { className: "flex items-center justify-between" },
+                            React.createElement('div', { className: "flex-1" },
+                              React.createElement('div', { className: "text-2xl font-bold text-orange-600 mb-1" }, sentence.korean),
+                              React.createElement('div', { className: "text-lg text-gray-800 mb-1" }, sentence.reading),
+                              React.createElement('div', { className: "text-sm text-gray-600" }, sentence.english)
+                            ),
+                            React.createElement('button', {
+                              onClick: (e) => {
+                                e.stopPropagation();
+                                playAudio(sentence.audio);
+                              },
+                              className: "text-2xl hover:text-orange-600 transition-colors ml-4",
+                              title: "Play pronunciation"
+                            }, "🔊")
+                          )
+                        )
+                      )
+                    ),
+                    
+                    React.createElement('div', { className: "mt-6 p-4 bg-orange-50 rounded-lg" },
+                      React.createElement('h3', { className: "font-bold text-orange-800 mb-2" }, "💡 Cultural Tips:"),
+                      React.createElement('ul', { className: "text-sm text-orange-700 space-y-1" },
+                        React.createElement('li', null, "• Use formal language (formal endings) with strangers, elders, or in business"),
+                        React.createElement('li', null, "• Casual language is for friends, family, or people younger than you"),
+                        React.createElement('li', null, "• Bowing slightly while greeting shows respect in Korean culture")
+                      )
+                    )
+                  ),
+
+                  learningSection === 'numbers' && React.createElement('div', null,
+                    React.createElement('h2', { className: "text-2xl font-bold mb-4 text-gray-800" }, "Korean Numbers (숫자)"),
+                    React.createElement('p', { className: "text-gray-600 mb-6" }, "Learn to count from 1 to 10 in Korean!"),
+                    
+                    React.createElement('div', { className: "bg-yellow-50 p-4 rounded-lg mb-6" },
+                      React.createElement('h3', { className: "font-bold text-yellow-800 mb-2" }, "Two Number Systems:"),
+                      React.createElement('div', { className: "text-yellow-700 space-y-1" },
+                        React.createElement('p', null, React.createElement('strong', null, "Sino-Korean (일, 이, 삼...)"), " - Used for: dates, money, phone numbers, math"),
+                        React.createElement('p', null, React.createElement('strong', null, "Native Korean (하나, 둘, 셋...)"), " - Used for: counting objects, age, time")
+                      )
+                    ),
+                    
+                    React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
+                      koreanNumbers.map(num =>
+                        React.createElement('div', {
+                          key: num.number,
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer",
+                          onClick: () => playAudio(num.audio)
+                        },
+                          React.createElement('div', { className: "flex items-center justify-between" },
+                            React.createElement('div', { className: "flex items-center space-x-4" },
+                              React.createElement('div', { className: "text-3xl font-bold text-teal-600 bg-teal-50 w-12 h-12 rounded-full flex items-center justify-center" }, num.number),
+                              React.createElement('div', null,
+                                React.createElement('div', { className: "text-2xl font-bold text-gray-800" }, num.korean),
+                                React.createElement('div', { className: "text-lg text-teal-600" }, num.reading),
+                                React.createElement('div', { className: "text-sm text-gray-600" }, num.native)
+                              )
+                            ),
+                            React.createElement('button', {
+                              onClick: (e) => {
+                                e.stopPropagation();
+                                playAudio(num.audio);
+                              },
+                              className: "text-2xl hover:text-teal-600 transition-colors",
+                              title: "Play pronunciation"
+                            }, "🔊")
+                          )
+                        )
+                      )
+                    ),
+                    
+                    React.createElement('div', { className: "mt-6 p-4 bg-teal-50 rounded-lg" },
+                      React.createElement('h3', { className: "font-bold text-teal-800 mb-2" }, "🎯 Quick Practice:"),
+                      React.createElement('p', { className: "text-teal-700 mb-2" }, "Try counting out loud: 일, 이, 삼, 사, 오..."),
+                      React.createElement('p', { className: "text-sm text-teal-600" }, "Click on each number to hear the correct pronunciation!")
                     )
                   )
                 ),
