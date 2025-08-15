@@ -87,6 +87,18 @@
           const [score, setScore] = React.useState({ correct: 0, total: 0 });
           const [usedQuestions, setUsedQuestions] = React.useState([]);
 
+          // Audio playback function
+          const playAudio = (char) => {
+            try {
+              const audio = new Audio(`korean_audio_assets/${char}.mp3`);
+              audio.play().catch(error => {
+                console.log('Audio playback failed:', error);
+              });
+            } catch (error) {
+              console.log('Audio not available for:', char);
+            }
+          };
+
           const startQuiz = (quizType) => {
             let characterSet;
             switch(quizType) {
@@ -295,14 +307,25 @@
                       basicVowels.map(vowel =>
                         React.createElement('div', {
                           key: vowel.char,
-                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer",
+                          onClick: () => playAudio(vowel.char)
                         },
-                          React.createElement('div', { className: "flex items-center space-x-4" },
-                            React.createElement('div', { className: "text-4xl font-bold text-blue-600" }, vowel.char),
-                            React.createElement('div', null,
-                              React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, vowel.reading),
-                              React.createElement('div', { className: "text-sm text-gray-600" }, vowel.description)
-                            )
+                          React.createElement('div', { className: "flex items-center justify-between" },
+                            React.createElement('div', { className: "flex items-center space-x-4" },
+                              React.createElement('div', { className: "text-4xl font-bold text-blue-600" }, vowel.char),
+                              React.createElement('div', null,
+                                React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, vowel.reading),
+                                React.createElement('div', { className: "text-sm text-gray-600" }, vowel.description)
+                              )
+                            ),
+                            React.createElement('button', {
+                              onClick: (e) => {
+                                e.stopPropagation();
+                                playAudio(vowel.char);
+                              },
+                              className: "text-2xl hover:text-blue-600 transition-colors",
+                              title: "Play pronunciation"
+                            }, "🔊")
                           )
                         )
                       )
@@ -324,14 +347,25 @@
                       basicConsonants.map(consonant =>
                         React.createElement('div', {
                           key: consonant.char,
-                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer",
+                          onClick: () => playAudio(consonant.char)
                         },
-                          React.createElement('div', { className: "flex items-center space-x-4" },
-                            React.createElement('div', { className: "text-4xl font-bold text-green-600" }, consonant.char),
-                            React.createElement('div', null,
-                              React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, consonant.reading),
-                              React.createElement('div', { className: "text-sm text-gray-600" }, consonant.description)
-                            )
+                          React.createElement('div', { className: "flex items-center justify-between" },
+                            React.createElement('div', { className: "flex items-center space-x-4" },
+                              React.createElement('div', { className: "text-4xl font-bold text-green-600" }, consonant.char),
+                              React.createElement('div', null,
+                                React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, consonant.reading),
+                                React.createElement('div', { className: "text-sm text-gray-600" }, consonant.description)
+                              )
+                            ),
+                            React.createElement('button', {
+                              onClick: (e) => {
+                                e.stopPropagation();
+                                playAudio(consonant.char);
+                              },
+                              className: "text-2xl hover:text-green-600 transition-colors",
+                              title: "Play pronunciation"
+                            }, "🔊")
                           )
                         )
                       )
@@ -365,15 +399,26 @@
                       syllableExamples.map(syllable =>
                         React.createElement('div', {
                           key: syllable.char,
-                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
+                          className: "border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer",
+                          onClick: () => playAudio(syllable.char)
                         },
-                          React.createElement('div', { className: "flex items-center space-x-4" },
-                            React.createElement('div', { className: "text-4xl font-bold text-purple-600" }, syllable.char),
-                            React.createElement('div', null,
-                              React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, syllable.reading),
-                              React.createElement('div', { className: "text-sm text-gray-600" }, syllable.breakdown),
-                              React.createElement('div', { className: "text-xs text-purple-600" }, "Meaning: ", syllable.meaning)
-                            )
+                          React.createElement('div', { className: "flex items-center justify-between" },
+                            React.createElement('div', { className: "flex items-center space-x-4" },
+                              React.createElement('div', { className: "text-4xl font-bold text-purple-600" }, syllable.char),
+                              React.createElement('div', null,
+                                React.createElement('div', { className: "text-xl font-semibold text-gray-800" }, syllable.reading),
+                                React.createElement('div', { className: "text-sm text-gray-600" }, syllable.breakdown),
+                                React.createElement('div', { className: "text-xs text-purple-600" }, "Meaning: ", syllable.meaning)
+                              )
+                            ),
+                            React.createElement('button', {
+                              onClick: (e) => {
+                                e.stopPropagation();
+                                playAudio(syllable.char);
+                              },
+                              className: "text-2xl hover:text-purple-600 transition-colors",
+                              title: "Play pronunciation"
+                            }, "🔊")
                           )
                         )
                       )
