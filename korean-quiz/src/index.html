@@ -772,21 +772,24 @@
                     )
                   ),
 
-                  // Handwriting Practice (Coming Soon)
-                  React.createElement('div', {
-                    className: "bg-white rounded-lg p-6 shadow-lg border-l-4 border-gray-400 opacity-75"
+                  // Draw to Search Korean
+                  React.createElement('a', {
+                    href: "https://www.drawkorean.com",
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    className: "block bg-white rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-200 transform hover:scale-105 border-l-4 border-green-500"
                   },
                     React.createElement('div', { className: "flex items-center mb-4" },
-                      React.createElement('div', { className: "text-4xl mr-4" }, "✍️"),
+                      React.createElement('div', { className: "text-4xl mr-4" }, "✏️"),
                       React.createElement('div', null,
-                        React.createElement('h3', { className: "text-xl font-bold text-gray-800" }, "Handwriting Practice"),
-                        React.createElement('p', { className: "text-sm text-gray-500" }, "Coming Soon!")
+                        React.createElement('h3', { className: "text-xl font-bold text-gray-800" }, "Draw to Search Korean"),
+                        React.createElement('p', { className: "text-sm text-green-600" }, "drawkorean.com")
                       )
                     ),
-                    React.createElement('p', { className: "text-gray-600 mb-4" }, "Practice writing Korean characters by hand! Interactive exercises to improve your Hangul writing skills."),
-                    React.createElement('div', { className: "flex items-center text-gray-400 font-medium" },
-                      React.createElement('span', null, "Coming soon..."),
-                      React.createElement('span', { className: "ml-2" }, "⏳")
+                    React.createElement('p', { className: "text-gray-600 mb-4" }, "Can't type Korean? Draw it! Sketch Korean characters with your mouse or finger and instantly find their meaning and pronunciation."),
+                    React.createElement('div', { className: "flex items-center text-green-500 font-medium" },
+                      React.createElement('span', null, "Start drawing"),
+                      React.createElement('span', { className: "ml-2" }, "→")
                     )
                   )
                 ),
