@@ -16,9 +16,228 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        // Copy your complete Japanese Quiz React component code here
         const JapaneseQuizApp = () => {
-            // [PASTE YOUR JAPANESE QUIZ COMPONENT CODE FROM THE ARTIFACT HERE]
+          // Character databases
+          const hiragana = [
+            { char: 'あ', reading: 'a' }, { char: 'い', reading: 'i' }, { char: 'う', reading: 'u' }, { char: 'え', reading: 'e' }, { char: 'お', reading: 'o' },
+            { char: 'か', reading: 'ka' }, { char: 'き', reading: 'ki' }, { char: 'く', reading: 'ku' }, { char: 'け', reading: 'ke' }, { char: 'こ', reading: 'ko' },
+            { char: 'さ', reading: 'sa' }, { char: 'し', reading: 'shi' }, { char: 'す', reading: 'su' }, { char: 'せ', reading: 'se' }, { char: 'そ', reading: 'so' },
+            { char: 'た', reading: 'ta' }, { char: 'ち', reading: 'chi' }, { char: 'つ', reading: 'tsu' }, { char: 'て', reading: 'te' }, { char: 'と', reading: 'to' },
+            { char: 'な', reading: 'na' }, { char: 'に', reading: 'ni' }, { char: 'ぬ', reading: 'nu' }, { char: 'ね', reading: 'ne' }, { char: 'の', reading: 'no' },
+            { char: 'は', reading: 'ha' }, { char: 'ひ', reading: 'hi' }, { char: 'ふ', reading: 'fu' }, { char: 'へ', reading: 'he' }, { char: 'ほ', reading: 'ho' },
+            { char: 'ま', reading: 'ma' }, { char: 'み', reading: 'mi' }, { char: 'む', reading: 'mu' }, { char: 'め', reading: 'me' }, { char: 'も', reading: 'mo' },
+            { char: 'や', reading: 'ya' }, { char: 'ゆ', reading: 'yu' }, { char: 'よ', reading: 'yo' },
+            { char: 'ら', reading: 'ra' }, { char: 'り', reading: 'ri' }, { char: 'る', reading: 'ru' }, { char: 'れ', reading: 're' }, { char: 'ろ', reading: 'ro' },
+            { char: 'わ', reading: 'wa' }, { char: 'を', reading: 'wo' }, { char: 'ん', reading: 'n' }
+          ];
+
+          const katakana = [
+            { char: 'ア', reading: 'a' }, { char: 'イ', reading: 'i' }, { char: 'ウ', reading: 'u' }, { char: 'エ', reading: 'e' }, { char: 'オ', reading: 'o' },
+            { char: 'カ', reading: 'ka' }, { char: 'キ', reading: 'ki' }, { char: 'ク', reading: 'ku' }, { char: 'ケ', reading: 'ke' }, { char: 'コ', reading: 'ko' },
+            { char: 'サ', reading: 'sa' }, { char: 'シ', reading: 'shi' }, { char: 'ス', reading: 'su' }, { char: 'セ', reading: 'se' }, { char: 'ソ', reading: 'so' },
+            { char: 'タ', reading: 'ta' }, { char: 'チ', reading: 'chi' }, { char: 'ツ', reading: 'tsu' }, { char: 'テ', reading: 'te' }, { char: 'ト', reading: 'to' },
+            { char: 'ナ', reading: 'na' }, { char: 'ニ', reading: 'ni' }, { char: 'ヌ', reading: 'nu' }, { char: 'ネ', reading: 'ne' }, { char: 'ノ', reading: 'no' },
+            { char: 'ハ', reading: 'ha' }, { char: 'ヒ', reading: 'hi' }, { char: 'フ', reading: 'fu' }, { char: 'ヘ', reading: 'he' }, { char: 'ホ', reading: 'ho' },
+            { char: 'マ', reading: 'ma' }, { char: 'ミ', reading: 'mi' }, { char: 'ム', reading: 'mu' }, { char: 'メ', reading: 'me' }, { char: 'モ', reading: 'mo' },
+            { char: 'ヤ', reading: 'ya' }, { char: 'ユ', reading: 'yu' }, { char: 'ヨ', reading: 'yo' },
+            { char: 'ラ', reading: 'ra' }, { char: 'リ', reading: 'ri' }, { char: 'ル', reading: 'ru' }, { char: 'レ', reading: 're' }, { char: 'ロ', reading: 'ro' },
+            { char: 'ワ', reading: 'wa' }, { char: 'ヲ', reading: 'wo' }, { char: 'ン', reading: 'n' }
+          ];
+
+          const kanji = [
+            { char: '一', reading: 'ichi', meaning: 'one' }, { char: '二', reading: 'ni', meaning: 'two' }, { char: '三', reading: 'san', meaning: 'three' }, 
+            { char: '四', reading: 'yon', meaning: 'four' }, { char: '五', reading: 'go', meaning: 'five' }, { char: '六', reading: 'roku', meaning: 'six' }, 
+            { char: '七', reading: 'nana', meaning: 'seven' }, { char: '八', reading: 'hachi', meaning: 'eight' }, { char: '九', reading: 'kyuu', meaning: 'nine' }, 
+            { char: '十', reading: 'juu', meaning: 'ten' }, { char: '人', reading: 'hito', meaning: 'person' }, { char: '日', reading: 'hi', meaning: 'day/sun' }, 
+            { char: '月', reading: 'tsuki', meaning: 'month/moon' }, { char: '火', reading: 'hi', meaning: 'fire' }, { char: '水', reading: 'mizu', meaning: 'water' },
+            { char: '木', reading: 'ki', meaning: 'tree/wood' }, { char: '金', reading: 'kin', meaning: 'gold/money' }, { char: '土', reading: 'tsuchi', meaning: 'earth/soil' }, 
+            { char: '大', reading: 'dai', meaning: 'big/large' }, { char: '小', reading: 'shou', meaning: 'small/little' }, { char: '中', reading: 'naka', meaning: 'middle/inside' }, 
+            { char: '上', reading: 'ue', meaning: 'up/above' }, { char: '下', reading: 'shita', meaning: 'down/below' }, { char: '左', reading: 'hidari', meaning: 'left' }, 
+            { char: '右', reading: 'migi', meaning: 'right' }, { char: '前', reading: 'mae', meaning: 'front/before' }, { char: '後', reading: 'ato', meaning: 'back/after' }, 
+            { char: '内', reading: 'uchi', meaning: 'inside' }, { char: '外', reading: 'soto', meaning: 'outside' }, { char: '手', reading: 'te', meaning: 'hand' },
+            { char: '足', reading: 'ashi', meaning: 'foot/leg' }, { char: '目', reading: 'me', meaning: 'eye' }, { char: '口', reading: 'kuchi', meaning: 'mouth' }, 
+            { char: '耳', reading: 'mimi', meaning: 'ear' }, { char: '頭', reading: 'atama', meaning: 'head' }, { char: '体', reading: 'karada', meaning: 'body' }, 
+            { char: '心', reading: 'kokoro', meaning: 'heart/mind' }, { char: '本', reading: 'hon', meaning: 'book/origin' }, { char: '車', reading: 'kuruma', meaning: 'car' }, 
+            { char: '電', reading: 'den', meaning: 'electricity' }, { char: '駅', reading: 'eki', meaning: 'station' }, { char: '学', reading: 'gaku', meaning: 'study/learn' }, 
+            { char: '校', reading: 'kou', meaning: 'school' }, { char: '先', reading: 'sen', meaning: 'before/ahead' }, { char: '生', reading: 'sei', meaning: 'life/birth' },
+            { char: '今', reading: 'ima', meaning: 'now' }, { char: '時', reading: 'ji', meaning: 'time' }, { char: '分', reading: 'fun', meaning: 'minute/part' }, 
+            { char: '年', reading: 'nen', meaning: 'year' }, { char: '毎', reading: 'mai', meaning: 'every' }, { char: '白', reading: 'shiro', meaning: 'white' }, 
+            { char: '黒', reading: 'kuro', meaning: 'black' }, { char: '赤', reading: 'aka', meaning: 'red' }, { char: '青', reading: 'ao', meaning: 'blue' }, 
+            { char: '色', reading: 'iro', meaning: 'color' }, { char: '山', reading: 'yama', meaning: 'mountain' }, { char: '川', reading: 'kawa', meaning: 'river' }, 
+            { char: '海', reading: 'umi', meaning: 'sea/ocean' }, { char: '空', reading: 'sora', meaning: 'sky' }, { char: '雨', reading: 'ame', meaning: 'rain' },
+            { char: '雪', reading: 'yuki', meaning: 'snow' }, { char: '風', reading: 'kaze', meaning: 'wind' }, { char: '花', reading: 'hana', meaning: 'flower' }, 
+            { char: '草', reading: 'kusa', meaning: 'grass' }, { char: '食', reading: 'shoku', meaning: 'food/eat' }, { char: '飲', reading: 'nomu', meaning: 'drink' }, 
+            { char: '見', reading: 'miru', meaning: 'see/look' }, { char: '聞', reading: 'kiku', meaning: 'hear/listen' }, { char: '読', reading: 'yomu', meaning: 'read' },
+            { char: '書', reading: 'kaku', meaning: 'write' }, { char: '話', reading: 'hanasu', meaning: 'speak/talk' }, { char: '言', reading: 'iu', meaning: 'say' }, 
+            { char: '行', reading: 'iku', meaning: 'go' }, { char: '来', reading: 'kuru', meaning: 'come' }, { char: '帰', reading: 'kaeru', meaning: 'return' }, 
+            { char: '入', reading: 'hairu', meaning: 'enter' }, { char: '出', reading: 'deru', meaning: 'exit/go out' }, { char: '立', reading: 'tatsu', meaning: 'stand' }, 
+            { char: '座', reading: 'suwaru', meaning: 'sit' }, { char: '買', reading: 'kau', meaning: 'buy' }, { char: '売', reading: 'uru', meaning: 'sell' }, 
+            { char: '作', reading: 'tsukuru', meaning: 'make/create' }, { char: '使', reading: 'tsukau', meaning: 'use' }, { char: '持', reading: 'motsu', meaning: 'hold/have' }
+          ];
+
+          const [mode, setMode] = React.useState('menu');
+          const [currentSet, setCurrentSet] = React.useState([]);
+          const [currentQuestion, setCurrentQuestion] = React.useState(null);
+          const [options, setOptions] = React.useState([]);
+          const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+          const [showAnswer, setShowAnswer] = React.useState(false);
+          const [score, setScore] = React.useState({ correct: 0, total: 0 });
+          const [usedQuestions, setUsedQuestions] = React.useState([]);
+
+          const startQuiz = (quizType) => {
+            let characterSet;
+            switch(quizType) {
+              case 'hiragana': characterSet = hiragana; break;
+              case 'katakana': characterSet = katakana; break;
+              case 'kanji': characterSet = kanji; break;
+              default: return;
+            }
+            
+            setCurrentSet(characterSet);
+            setMode('quiz');
+            setScore({ correct: 0, total: 0 });
+            setUsedQuestions([]);
+            generateQuestion(characterSet, []);
+          };
+
+          const generateQuestion = (characterSet, used) => {
+            const availableQuestions = characterSet.filter((_, index) => !used.includes(index));
+            
+            if (availableQuestions.length === 0) {
+              setUsedQuestions([]);
+              return generateQuestion(characterSet, []);
+            }
+
+            const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            const question = availableQuestions[randomIndex];
+            const questionIndex = characterSet.indexOf(question);
+            
+            const wrongAnswers = characterSet
+              .filter(item => item.reading !== question.reading)
+              .sort(() => Math.random() - 0.5)
+              .slice(0, 2)
+              .map(item => item.reading);
+            
+            const allOptions = [question.reading, ...wrongAnswers].sort(() => Math.random() - 0.5);
+            
+            setCurrentQuestion(question);
+            setOptions(allOptions);
+            setSelectedAnswer(null);
+            setShowAnswer(false);
+            setUsedQuestions([...used, questionIndex]);
+          };
+
+          const handleAnswer = (answer) => {
+            setSelectedAnswer(answer);
+            const isCorrect = answer === currentQuestion.reading;
+            
+            setScore(prev => ({
+              correct: prev.correct + (isCorrect ? 1 : 0),
+              total: prev.total + 1
+            }));
+
+            if (isCorrect) {
+              // Give more time for kanji to read the translation
+              const delay = currentQuestion.meaning ? 2000 : 800;
+              setTimeout(() => generateQuestion(currentSet, usedQuestions), delay);
+            } else {
+              setShowAnswer(true);
+              setTimeout(() => generateQuestion(currentSet, usedQuestions), 4000);
+            }
+          };
+
+          const backToMenu = () => {
+            setMode('menu');
+          };
+
+          if (mode === 'menu') {
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center p-4" },
+              React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-md w-full" },
+                React.createElement('h1', { className: "text-3xl font-bold text-center mb-2 text-gray-800" }, "日本語クイズ"),
+                React.createElement('p', { className: "text-center text-gray-600 mb-8" }, "Japanese Reading Quiz"),
+                
+                React.createElement('div', { className: "space-y-4" },
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('hiragana'),
+                    className: "w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "ひらがな"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Hiragana (46 characters)")
+                  ),
+                  
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('katakana'),
+                    className: "w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "カタカナ"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Katakana (46 characters)")
+                  ),
+                  
+                  React.createElement('button', { 
+                    onClick: () => startQuiz('kanji'),
+                    className: "w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+                  },
+                    React.createElement('div', { className: "text-2xl mb-1" }, "漢字"),
+                    React.createElement('div', { className: "text-sm opacity-90" }, "Kanji JLPT N5 (70 characters)")
+                  )
+                )
+              )
+            );
+          }
+
+          return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-indigo-100 to-cyan-100 flex items-center justify-center p-4" },
+            React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full" },
+              React.createElement('div', { className: "flex justify-between items-center mb-6" },
+                React.createElement('button', { 
+                  onClick: backToMenu,
+                  className: "text-gray-600 hover:text-gray-800 text-sm font-medium"
+                }, "← Back to Menu"),
+                React.createElement('div', { className: "text-sm text-gray-600" }, 
+                  "Score: " + score.correct + "/" + score.total
+                )
+              ),
+
+              currentQuestion && React.createElement('div', { className: "text-center" },
+                React.createElement('div', { className: "text-8xl font-bold mb-8 text-gray-800" },
+                  currentQuestion.char
+                ),
+
+                !showAnswer && !selectedAnswer && React.createElement('div', { className: "space-y-3" },
+                  React.createElement('p', { className: "text-lg text-gray-600 mb-6" }, "How do you read this character?"),
+                  options.map((option, index) =>
+                    React.createElement('button', {
+                      key: index,
+                      onClick: () => handleAnswer(option),
+                      className: "w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200"
+                    }, option)
+                  )
+                ),
+
+                selectedAnswer && !showAnswer && React.createElement('div', { className: "text-center" },
+                  React.createElement('div', { 
+                    className: `text-2xl font-bold mb-4 ${selectedAnswer === currentQuestion.reading ? 'text-green-600' : 'text-red-600'}`
+                  }, selectedAnswer === currentQuestion.reading ? '正解！ Correct!' : 'Wrong!'),
+                  selectedAnswer === currentQuestion.reading && React.createElement('div', { className: "text-lg text-gray-600" }, 
+                    currentQuestion.char + " = " + currentQuestion.reading + 
+                    (currentQuestion.meaning ? " (" + currentQuestion.meaning + ")" : "")
+                  )
+                ),
+
+                showAnswer && React.createElement('div', { className: "text-center" },
+                  React.createElement('div', { className: "text-red-600 text-xl font-bold mb-4" }, "Wrong!"),
+                  React.createElement('div', { className: "text-2xl text-gray-800 mb-2" },
+                    "Correct answer: ",
+                    React.createElement('span', { className: "font-bold text-blue-600" }, currentQuestion.reading)
+                  ),
+                  React.createElement('div', { className: "text-lg text-gray-600" }, 
+                    currentQuestion.char + " = " + currentQuestion.reading + 
+                    (currentQuestion.meaning ? " (" + currentQuestion.meaning + ")" : "")
+                  ),
+                  React.createElement('div', { className: "text-sm text-gray-500 mt-4" }, "Next question in a moment...")
+                )
+              )
+            )
+          );
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
